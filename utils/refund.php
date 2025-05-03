@@ -16,7 +16,7 @@ $client->setEnvironment(\Adyen\Environment::TEST);
 $client->setXApiKey($xApiKey);
 $service = new \Adyen\Service\Checkout\ModificationsApi($client);
 $params = $data["request"];
-$PaymentRefundRequest = new \Adyen\Model\Checkout\paymentRefundRequest($params);
+$PaymentRefundRequest = new \Adyen\Model\Checkout\PaymentRefundRequest($params);
 
 $result = $service->refundCapturedPayment($data["pspReference"],$PaymentRefundRequest);
 
