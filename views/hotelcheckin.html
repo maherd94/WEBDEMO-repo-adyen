@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Room Selection</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.48.0/adyen.js"
+        integrity="sha384-wvwpOBTCI7TDOWLqwmi5LAsI998q3l9ELPrDe9mHNnAkCHyErgsKqTfMedQga84B"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.48.0/adyen.css"
+        integrity="sha384-qnBE7PYKjoczkCnsKztuq5/oFKUqP98X25aVmTb5YpMCci4yqktWu7PTu0pdcW2G" crossorigin="anonymous" />
+    <style>
+        /* Styling for the popup container */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 500px;
+            min-height: 400px;
+            height: auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+
+        /* Styling for the overlay background */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        /* Close button style */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .popup-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .userdiv {
+            width: 45%;
+        }
+
+        .bookingdiv {
+            width: 45%;
+        }
+
+        .twobytwo {
+
+            display: flex;
+            flex-wrap: nowrap;
+            align-content: flex-start;
+            justify-content: space-around;
+            align-items: flex-start;
+
+        }
+
+        .main {
+            display: flex;
+            flex-wrap: nowrap;
+            align-content: stretch;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .right-header {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            align-content: center;
+        }
+
+        .title-div {
+            width: 60%;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        footer {
+            /* position: absolute;
+            bottom: 0; */
+            text-align: center;
+            background-color: #041f4a;
+            color: #fff;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        header {
+            background-color: #041f4a;
+            color: #fff;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .logo-container {
+            width: 20%;
+            text-align: left;
+            /* Align the logo to the left */
+        }
+
+        .logo-container img {
+            max-width: 100%;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        #booking-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #room-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .noShowCharge {
+            background-color: rgb(210, 95, 23);
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .checkinbtn {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-div {
+            padding: 11px;
+        }
+
+        #user-info {
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+/* Add more styles as needed */
+@media screen and (min-height:904px) {
+    footer {
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+    }
+    
+}
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="adyen-logo-div">
+            <!-- Adyen Logo -->
+            <a href="type.html" ><img src="./../images/adyen-logo.svg" alt="Adyen Logo" width="100"></a>
+        </div>
+        <div class="right-header">
+            <div class="title-div">
+                <!-- <h1>Welcome To The Adyen Experience</h1> -->
+            </div>
+
+        </div>
+
+        </div>
+    </header>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup-container" id="popup">
+        <span class="close-button" id="closePopupButton">&#215;</span>
+        <h1>Payment</h1>
+        <!-- <h5>The payment method used here will used to authorize deposit on checkin and pay outstanding amount on checkout.</h5> -->
+        <div id="adyen-container"></div>
+
+    </div>
+    <div class="main">
+        <div id="booking-container">
+            <h1>Property Management System</h1>
+
+
+            <div class="imgdiv">
+                <img id="room-image" src="./../images/hotelroom.webp" alt="Hotel Room">
+            </div>
+            <div class="twobytwo">
+                <div class="userdiv">
+                    <h2>User Information</h2>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" readonly>
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" readonly>
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" readonly>
+                    <label for="numPeople">Number of Guests:</label>
+                    <input type="number" id="numPeople" name="numPeople" min="1" readonly>
+                </div>
+                <div class="bookingdiv">
+                    <h2>Booking Details</h2>
+                    <label for="fromDate">From Date:</label>
+                    <input type="text" id="fromDate" name="fromDate" readonly>
+                    <label for="toDate">To Date:</label>
+                    <input type="text" id="toDate" name="toDate" readonly>
+                    <label for="nights">Number of Nights:</label>
+                    <input type="number" id="nights" name="nights" readonly>
+                    <p>Total Price: <span id="total-price"><span class="totalAmount">500</span> AED</span></p>
+                </div>
+            </div>
+            <div class="btn-div">
+                <button class="noShowCharge">Charge No Show</button>
+                <button class="checkinbtn">Check in</button>
+            </div>
+        </div>
+
+
+    </div>
+    <footer>
+        <p>&copy; 2023 Your E-commerce Store</p>
+    </footer>
+    <script>
+        $(document).ready(function () {
+
+            function loadBookingDetails() {
+
+                var bookingDetails = JSON.parse(sessionStorage.bookingDetails);
+
+
+                $('#email').val(bookingDetails.email);
+                $('#fullName').val(bookingDetails.fullName);
+                $('#phoneNumber').val(bookingDetails.phoneNumber);
+                $('#numPeople').val(bookingDetails.numPeople);
+                $('#fromDate').val(bookingDetails.fromDate);
+                $('#toDate').val(bookingDetails.toDate);
+                $('#nights').val(bookingDetails.nights);
+                $('.totalAmount').text(sessionStorage.total);
+            }
+
+
+            loadBookingDetails();
+            $("#closePopupButton, #overlay").click(function () {
+
+                $("#overlay, #popup").fadeOut();
+
+            });
+
+            function callAPI(apiUrl, raw, headersSent, callback) {
+
+                // Convert the data object to a JSON string
+                var jsonData = JSON.stringify(raw);
+
+                // Make the POST request using jQuery
+                $.ajax({
+                    type: 'POST',
+                    url: apiUrl,
+                    data: raw,
+                    headers: headersSent,
+                    mode: 'no-cors',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log('done call got response');
+                        callback(response); // Call the callback function with the response data
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown);
+                        console.error('error', jqXHR);
+                        // You can handle error cases here
+                    }
+                });
+            }
+
+
+            $('.checkinbtn').click(function () {
+
+                var paymentRequestBody = {
+
+                    "amount": {
+                        "currency": `${sessionStorage.selectedCurrency.toUpperCase()}`,
+                        "value": '30000'
+                    },
+                    "reference": generateServiceID(),
+                    "paymentMethod": '',
+                    "shopperInteraction": "ContAuth",
+                    "shopperReference": "anything_123",
+                    "recurringProcessingModel": "UnscheduledCardOnFile",
+                    "paymentMethod": {
+                        "type": "scheme",
+                        "storedPaymentMethodId": sessionStorage.recurringDetailReference
+                    },
+                    "returnUrl": window.location.href,
+                    "merchantAccount": JSON.parse(sessionStorage.connectionConfig).configuration.ecomMerchantAccount,
+                    "shopperEmail": "shopper@demo.com",
+                    "shopperIP": "192.0.2.1",
+                    "channel": "web",
+                    "origin": window.location.href,
+                };
+
+                $("#overlay, #popup").fadeIn();
+                raw = JSON.stringify(paymentRequestBody);
+                console.log('Payment Request Body', $.parseJSON(raw));
+                var headersSent = {
+                    'X-API-Key': JSON.parse(sessionStorage.connectionConfig).configuration.apiKeyPOS
+                }
+                callAPI('./../utils/payments.php', raw, headersSent, function (response) {
+
+                    console.log('Payment response Body', response);
+                    showResult(response,'Check In Successful','checkIn');
+
+
+
+
+
+                });
+            });
+
+            $('.noShowCharge').click(function () {
+
+               
+                var pspReference = sessionStorage.pspReferenceToRefund;
+                var amountValue = sessionStorage.total * 100;
+                var amountCurrency = sessionStorage.selectedCurrency;
+
+                console.log(pspReference);
+                console.log(amountValue);
+                console.log(amountCurrency);
+
+                var refundReuqestBody = `{
+                                "request":{
+                                "merchantAccount": "${JSON.parse(sessionStorage.connectionConfig).configuration.ecomMerchantAccount}",
+                                "amount": {
+                                    "value": ${amountValue},
+                                    "currency": "${amountCurrency}"
+                                },
+                                "reference": "${generateServiceID()}"
+                            },
+                            "pspReference":"${pspReference}"
+                            }`;
+
+                console.log('refundReuqestBody', refundReuqestBody);
+                var headersSent = {
+                    'X-API-Key': JSON.parse(sessionStorage.connectionConfig).configuration.apiKeyECOM
+                }
+                callAPI('./../utils/refund.php', refundReuqestBody, headersSent, function (response) {
+                    console.log(response);
+                    makeNoShowCharge();
+                });
+
+
+
+
+
+            });
+
+
+            function makeNoShowCharge() {
+
+                var paymentRequestBody = {
+
+                    "amount": {
+                        "currency": `${sessionStorage.selectedCurrency.toUpperCase()}`,
+                        "value": '25000'
+                    },
+                    "reference": 'NoShow-' + generateServiceID(),
+                    "paymentMethod": '',
+                    "shopperInteraction": "ContAuth",
+                    "shopperReference": "anything_123",
+                    "recurringProcessingModel": "UnscheduledCardOnFile",
+                    "paymentMethod": {
+                        "type": "scheme",
+                        "storedPaymentMethodId": sessionStorage.recurringDetailReference
+                    },
+                    "returnUrl": window.location.href,
+                    "merchantAccount": JSON.parse(sessionStorage.connectionConfig).configuration.ecomMerchantAccount,
+                    "shopperEmail": "shopper@demo.com",
+                    "shopperIP": "192.0.2.1",
+                    "channel": "web",
+                    "origin": window.location.href,
+                };
+
+                $("#overlay, #popup").fadeIn();
+                raw = JSON.stringify(paymentRequestBody);
+                console.log('Payment Request Body', $.parseJSON(raw));
+                var headersSent = {
+                    'X-API-Key': JSON.parse(sessionStorage.connectionConfig).configuration.apiKeyPOS
+                }
+                callAPI('./../utils/payments.php', raw, headersSent, function (response) {
+
+                    console.log('Payment response Body', response);
+                    showResult(response,'No Show Fee Charged!','noShow');
+
+
+
+
+
+                });
+
+
+
+
+
+            }
+
+            function showResult(response,successfulText,operation) {
+                console.log(response);
+
+                if (response.resultCode == "Authorised") {
+
+
+                    $('#adyen-container').html(`<div class="success-page adyen-checkout__status adyen-checkout__status--success"><img height="88" class="adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/success.gif" alt="Payment Successful"><span class="adyen-checkout__status__text">${successfulText}</span><span class="goToCheckout"></span></span></div>`);
+                    if(operation=='checkIn'){
+                        $('.goToCheckout').html('<a href="hotelcheckout.html">Check Out!!</a>');
+                    }
+                    pspReference_Tokenize = response.pspReference
+                    recurringDetailReference_Tokenize = response.additionalData['recurring.recurringDetailReference'];
+                    console.log('psp', pspReference_Tokenize);
+                    console.log('rdr', recurringDetailReference_Tokenize);
+
+                    sessionStorage.setItem('recurringDetailReference', recurringDetailReference_Tokenize);
+
+
+
+                } else if (response.resultCode == "Refused") {
+                    $('#adyen-container').html(`<div class=" success-page adyen-checkout__status adyen-checkout__status--error"><img class="adyen-checkout__status__icon adyen-checkout__image adyen-checkout__image--loaded" src="https://checkoutshopper-test.adyen.com/checkoutshopper/images/components/error.gif" alt="An unknown error occurred" height="88"><span class="adyen-checkout__status__text">Payment Unsuccessful : <b>${response.refusalReason}</b></span></div>`);
+                }
+
+            }
+
+
+
+
+            function generateISOTimestamp() {
+                return new Date().toISOString();
+            }
+
+            function generateServiceID() {
+                return `Adyen-Demo-${Date.now().toString(36)}`;
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>

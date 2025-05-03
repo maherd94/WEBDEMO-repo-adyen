@@ -1,0 +1,45 @@
+[
+    {
+        "itemName":"T-Shirt",
+        "itemPrice":"49.99",
+        "itemImage":"./../images/tshirt.png",
+        "itemNameF&B":"Coffee",
+        "itemImageF&B":"./../images/coffee.png"
+    },
+    {
+        "itemName":"Headphones",
+        "itemPrice":"99.99",
+        "itemImage":"./../images/headphones.png",
+        "itemNameF&B":"Juice",
+        "itemImageF&B":"./../images/juice.png"
+    },
+    {
+        "itemName":"Sunglasses",
+        "itemPrice":"39.99",
+        "itemImage":"./../images/sunglasses.png",
+        "itemNameF&B":"Sandwich",
+        "itemImageF&B":"./../images/sandwich.png"
+    },
+    {
+        "itemName":"Boots",
+        "itemPrice":"64.99",
+        "itemImage":"./../images/boots.png",
+        "itemNameF&B":"Water",
+        "itemImageF&B":"./../images/water.png"
+    },
+    {
+        "itemName":"Tickets",
+        "itemPrice":"34.99",
+        "itemImage":"./../images/ticket.png",
+        "itemNameF&B":"Tea",
+        "itemImageF&B":"./../images/tea.png"
+    },
+    {
+        "itemName":"Backpack",
+        "itemPrice":"79.99",
+        "itemImage":"./../images/backpack.png",
+        "itemNameF&B":"Chicken Platter",
+        "itemImageF&B":"./../images/chicken.png"
+    }
+    
+]

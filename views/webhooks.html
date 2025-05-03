@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="./../styles/webhooks.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./../js/common.js"></script>
+    <script src="./../js/webhooks.js"></script>
+    
+</head>
+<body>
+    <header>
+        <div class="adyen-logo-div">
+            <!-- Adyen Logo -->
+            <a href="type.html" ><img src="./../images/adyen-logo.svg" alt="Adyen Logo" width="100"></a>
+        </div>
+        <div class="right-header">
+            <div class="title-div">
+                <h1>Shopping Cart</h1>
+            </div>
+            <div class="nav-div">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="webhooks.html">Webhooks</a></li>
+                        <li class="dropdown">
+                            <img id="selected-country-flag" src="https://ca-test.adyen.com/ca/adl/img/flags/us.svg" alt="Selected Country Flag">
+                            <select class="dropbtn" id="country-dropdown">
+                                
+                                <!-- Add other country options here -->
+                            </select>
+                        </li>
+                        <li class="dropdown">
+                            <select class="dropbtn" id="language-dropdown">
+                                <!-- Add your language options here -->
+                                <option value="english">English</option>
+                                <option value="spanish">Spanish</option>
+                                <!-- Add more languages as needed -->
+                            </select>
+                        </li>
+                        <li class="dropdown">
+                            <select class="dropbtn" id="currency-dropdown">
+                                <!-- Add your currency options here -->
+                                <option value="usd">USD</option>
+                                <option value="eur">EUR</option>
+                                <option value="aed">AED</option>
+                                <option value="cny">CNY</option>
+                                <option value="gbp">GBP</option>
+                            </select>
+                        </li>
+                        
+                        <li><a href="cart.html" id="cart-button">Cart (0)</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="table-header"><h1>Transaction Data</h1> <span class="refresh"></span></div>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Success</th>
+                    <th>Merchant Account</th>
+                    <th>PspReference</th>
+                    <th>Original PspReference</th>
+                    <th>Merchant Referece</th>
+                    <th>Payment Method</th>
+                    <th>Event Date</th>
+                    <th>Event Code</th>
+                    <th>Reason</th>
+                    <th>Amount</th>
+                    <th>Online</th>
+                    <th>In Store</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows with data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+     <footer>
+        <p>&copy; 2023 Your E-commerce Store</p>
+    </footer>
+</body>
+
+</html>

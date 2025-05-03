@@ -1,0 +1,20 @@
+{
+    "name": "maher/webdemo2",
+    "require": {
+        "adyen/php-api-library": "^15.4"
+    },
+    "require-dev": {
+        "adyen/php-webhook-module": "^0.8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maher\\Webdemo2\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "maherdaher94",
+            "email": "45203884+maherdaher94@users.noreply.github.com"
+        }
+    ]
+}

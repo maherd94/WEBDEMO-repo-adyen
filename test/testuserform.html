@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Information Form</title>
+    <style>
+        .form-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            align-content: center;
+        }
+
+        .form-field {
+            width: 48%;
+
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        label,
+        input {
+            display: block;
+            margin: 10px 0;
+
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fffbfb;
+        }
+
+        .right-header {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            align-content: center;
+        }
+
+        header {
+            background-color: #041f4a;
+            color: #fff;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .logo-container {
+            width: 20%;
+            text-align: left;
+            /* Align the logo to the left */
+        }
+
+        .logo-container img {
+            max-width: 100%;
+        }
+
+        .nav-div {
+            margin-top: 40px;
+        }
+
+        .title-div {
+            width: 60%;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        footer {
+            /* position: absolute;
+            bottom: 0; */
+            text-align: center;
+            background-color: #041f4a;
+            color: #fff;
+            width: 100%;
+            padding: 10px 0;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            $('input[type="text"]').change(function (e) {
+                e.preventDefault();
+                var ecomMerchantAccount = $('#ecomMerchantAccount').val();
+                var posMerchantAccount = $('#posMerchantAccount').val();
+                var apiKeyECOM = $('#apiKeyECOM').val();
+                var apiKeyPOS = $('#apiKeyPOS').val();;
+                // var demoShopperEmail = $('#demoShopperEmail').val();;
+                // var demoShopperLoyaltyPoints = $('#demoShopperLoyaltyPoints').val();;
+                // var demoShopperName = $('#demoShopperName').val();;
+                var terminalID = $('#terminalID').val();;
+                var clientKey = $('#clientKey').val();;
+
+                var configObject = {
+                    "configuration": {
+                        "ecomMerchantAccount": ecomMerchantAccount,
+                        "apiKeyECOM": apiKeyECOM,
+                        "clientKey": clientKey,
+                        "posMerchantAccount": posMerchantAccount,
+                        "apiKeyPOS": apiKeyPOS,
+                        "terminalID":terminalID
+                        // "demoShopperEmail": demoShopperEmail,
+                        // "demoShopperLoyaltyPoints": demoShopperLoyaltyPoints,
+                        // "demoShopperName": demoShopperName
+                    }
+                }
+                console.log('configuration object', configObject);
+                sessionStorage.setItem('connectionConfig', JSON.stringify(configObject));
+
+
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="adyen-logo-div">
+            <!-- Adyen Logo -->
+            <img src="./../images/adyen-logo.svg" alt="Adyen Logo" width="100">
+        </div>
+        <div class="right-header">
+            <div class="title-div">
+                <h1>Welcome To The Adyen Experience</h1>
+            </div>
+
+        </div>
+
+        </div>
+    </header>
+    <div class="container">
+        <h2>Connection Information</h2>
+        <form id="connection-information-form" action="./../views/type.html" method="POST">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="ecomMerchantAccount">ECOM Merchant Account</label>
+                    <input type="text" id="ecomMerchantAccount" name="ecomMerchantAccount" required>
+
+                </div>
+                <div class="form-field">
+                    <label for="apiKeyECOM">API Key ECOM</label>
+                    <input type="text" id="apiKeyECOM" name="apiKeyECOM" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="clientKey">Client Key</label>
+                    <input type="text" id="clientKey" name="clientKey" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="terminalID">Terminal ID</label>
+                    <input type="text" id="terminalID" name="terminalID" required>
+                </div>
+                <div class="form-field">
+                    <label for="apiKeyPOS">API Key POS</label>
+                    <input type="text" id="apiKeyPOS" name="apiKeyPOS" required>
+                </div>
+                </div>
+               <div class="form-row">
+                <div class="form-field">
+                    <label for="posMerchantAccount">POS Merchant Account</label>
+                    <input type="text" id="posMerchantAccount" name="posMerchantAccount" required>
+                </div>
+               </div>
+               <div class="form-row">
+                <!-- <div class="form-field">
+                    <label for="demoShopperEmail">Demo Shopper Email</label>
+                    <input type="email" id="demoShopperEmail" name="demoShopperEmail" required>
+                </div> -->
+                <!-- <div class="form-field">
+                    <label for="demoShopperName">Demo Shopper Name</label>
+                    <input type="text" id="demoShopperName" name="demoShopperName" required>
+                </div> -->
+            </div>
+            
+            <div class="form-row">
+               
+                <!-- <div class="form-field">
+                    <label for="demoShopperLoyaltyPoints">Demo Shopper Loyalty Points</label>
+                    <input type="text" id="demoShopperLoyaltyPoints" name="demoShopperLoyaltyPoints" required>
+                </div> -->
+            </div>
+            <div>
+                <input type="submit" value="Submit" class="submit-btn">
+            </div>
+        </form>
+    </div>
+    <footer>
+        <p>&copy; 2023 Your E-commerce Store</p>
+    </footer>
+</body>
+
+</html>

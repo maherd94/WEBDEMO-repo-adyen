@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="./../styles/cart.css">
+    <link rel="stylesheet" href="https://checkoutshopper-live.adyen.com/checkoutshopper/sdk/5.48.0/adyen.css"
+    integrity="sha384-qnBE7PYKjoczkCnsKztuq5/oFKUqP98X25aVmTb5YpMCci4yqktWu7PTu0pdcW2G" crossorigin="anonymous" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./../js/common.js"></script>
+    <script src="./../js/cart.js"></script>
+    
+</head>
+<body>
+    <header>
+        <div class="adyen-logo-div">
+            <!-- Adyen Logo -->
+            <a href="type.html" ><img src="./../images/adyen-logo.svg" alt="Adyen Logo" width="100"></a>
+        </div>
+        <div class="right-header">
+            <div class="title-div">
+                <h1>Shopping Cart</h1>
+            </div>
+            <div class="nav-div">
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="webhooks.html">Webhooks</a></li>
+                        <li class="dropdown">
+                            <img id="selected-country-flag" src="https://ca-test.adyen.com/ca/adl/img/flags/us.svg" alt="Selected Country Flag">
+                            <select class="dropbtn" id="country-dropdown">
+                                
+                                <!-- Add other country options here -->
+                            </select>
+                        </li>
+                        <li class="dropdown">
+                            <select class="dropbtn" id="language-dropdown">
+                                <!-- Add your language options here -->
+                                <option value="english">English</option>
+                                <option value="spanish">Spanish</option>
+                                <!-- Add more languages as needed -->
+                            </select>
+                        </li>
+                        <li class="dropdown">
+                            <select class="dropbtn" id="currency-dropdown">
+                                <!-- Add your currency options here -->
+                                <option value="usd">USD</option>
+                                <option value="eur">EUR</option>
+                                <option value="aed">AED</option>
+                                <option value="cny">CNY</option>
+                                <option value="gbp">GBP</option>
+                            </select>
+                        </li>
+                        <li><a href="#" id="cart-button">Cart (0)</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup-container" id="popup">
+        <span class="close-button" id="closePopupButton">&#215;</span>
+        <h1>Please Wait for the payment</h1>
+        <div class="spinner">
+            <div class="spinner-border"></div>
+            <div>Waiting action...</div>
+        </div>
+        <div class="payment-result-container hide">
+            
+
+        </div>
+    </div>
+
+    <main>
+        <div id="custom-popup" class="popup">
+            <div class="popup-content">
+                <span class="popup-close">&times;</span>
+                <h2>Alert Message !!</h2>
+                <p id="popup-message">Your cart is empty. Please add items to your cart before proceeding to checkout.</p>
+            </div>
+        </div>
+        
+        <section id="cart-items" class="product-section">
+           
+        </section>
+
+        <div id="cart-total" class="total product-price">
+            <!-- Total amount will be displayed here -->
+            Total: $0
+        </div>
+
+        <button class="add-to-cart checkout-button">Go to Checkout</button>
+        <button class="add-to-cart checkout-button-reset" id="reset-cart-button">Reset Cart</button>
+        <button class="deposit-auth-button" id="deposit-auth-button">Authorize Deposit</button>
+       
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Your E-commerce Store</p>
+    </footer>
+</body>
+</html>

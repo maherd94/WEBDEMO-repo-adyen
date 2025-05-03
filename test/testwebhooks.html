@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Custom styles for a modern and beautiful table */
+        /* body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        th {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr.hoverable:hover {
+            background-color: #d6d8db;
+        } */
+
+        .success-true {
+            color: #28a745;
+            background-image: url('./../images/success.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .success-false {
+            color: #dc3545;
+            background-image: url('./../images/failure.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            width:100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #041f4a;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Transaction Data</h1>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Success</th>
+                    <th>PspReference</th>
+                    <th>Payment Method</th>
+                    <th>Event Date</th>
+                    <th>Event Code</th>
+                    <th>Reason</th>
+                    <th>Operations</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows with data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to make an API call
+        function callAPI(apiUrl, raw, callback) {
+            // Convert the data object to a JSON string
+            var jsonData = JSON.stringify(raw);
+
+            // Make the POST request using jQuery
+            $.ajax({
+                type: 'POST',
+                url: apiUrl,
+                data: raw,
+                mode: 'no-cors',
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (response) {
+                    console.log('done call got response');
+                    callback(response); // Call the callback function with the response data
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                    console.error('error', jqXHR);
+                    // You can handle error cases here
+                }
+            });
+        }
+
+        // Replace this with your actual API endpoint
+        callAPI('./../utils/getwebhooks.php', {}, function (response) {
+            const sampleApiResponse = response;
+            const table = document.querySelector('tbody');
+
+            sampleApiResponse.forEach(item => {
+                const newitem = $.parseJSON(item.content);
+
+
+                table.innerHTML += `
+                    <tr class="hoverable">
+                        <td class="success-${newitem.notificationItems[0].NotificationRequestItem.success}"</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.pspReference}</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.paymentMethod}</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.eventDate}</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.eventCode}</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.reason}</td>
+                        <td>${newitem.notificationItems[0].NotificationRequestItem.operations.join(', ')}</td>
+                        <td>${((newitem.notificationItems[0].NotificationRequestItem.amount.value) / 100).toFixed(2)} ${newitem.notificationItems[0].NotificationRequestItem.amount.currency}</td>
+                    </tr>
+                `;
+            });
+        });
+    </script>
+</body>
+
+</html>
