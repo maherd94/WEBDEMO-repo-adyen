@@ -22,14 +22,14 @@ $(document).ready(function () {
         },
         "countryCode": '',
         "merchantAccount": '',
-        "shopperReference": "DEMO_1234556",
+        "shopperReference": "DEMO_2245678",
         "shopperEmail": "test@email.com"
     };
     var paymentMethodRequestBody = {
 
         "merchantAccount": "MaherAccountECOM",
 
-        "shopperReference": "DEMO_1234556",
+        "shopperReference": "DEMO_2245678",
         "countryCode": "AE",
         "amount": {
             "currency": "AED",
@@ -53,7 +53,7 @@ $(document).ready(function () {
         //     }
         // },
         "recurringProcessingModel":"CardOnFile",
-        "shopperReference":"DEMO_1234556",
+        "shopperReference":"DEMO_2245678",
         "browserInfo": {
             "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
             "acceptHeader": "text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/webp,image\/apng,*\/*;q=0.8",

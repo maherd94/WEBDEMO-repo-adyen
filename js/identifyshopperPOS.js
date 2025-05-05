@@ -249,7 +249,7 @@ $(document).ready(function () {
                                 "TransactionID": generateServiceID(),
                                 "TimeStamp": generateISOTimestamp()
                             },
-                            "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_1234556&shopperEmail=shopper@adyen.com",
+                            "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_2245678&shopperEmail=shopper@adyen.com",
                             "TokenRequestedType": "Customer"
                         },
                         "PaymentTransaction": {

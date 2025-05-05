@@ -77,7 +77,7 @@ $(".deposit-auth-button").addClass('hide');
                             "TransactionID": generateServiceID(),
                             "TimeStamp": generateISOTimestamp()
                         },
-                        "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_1234556&shopperEmail=shopper@adyen.com&authorisationType=PreAuth&manualCapture=true",
+                        "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_2245678&shopperEmail=shopper@adyen.com&authorisationType=PreAuth&manualCapture=true",
                         "TokenRequestedType": "Customer"
                     },
                     "PaymentTransaction": {
@@ -246,7 +246,7 @@ else{
                                 "TransactionID": generateServiceID(),
                                 "TimeStamp": generateISOTimestamp()
                             },
-                            "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_1234556&shopperEmail=shopper@adyen.com",
+                            "SaleToAcquirerData": "recurringProcessingModel=UnscheduledCardOnFile&shopperReference=DEMO_2245678&shopperEmail=shopper@adyen.com",
                             "TokenRequestedType": "Customer"
                         },
                 "PaymentTransaction": {
@@ -422,7 +422,7 @@ else{
                 "reference": generateServiceID(),
                 "paymentMethod": '',
                 "shopperInteraction":"ContAuth",
-                "shopperReference":"DEMO_1234556",
+                "shopperReference":"DEMO_2245678",
                 "recurringProcessingModel":"UnscheduledCardOnFile",
                 "paymentMethod": {
                     "type": "scheme",
